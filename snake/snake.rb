@@ -13,9 +13,11 @@ GRID_HEIGHT = Window.height / GRID_SIZE
 
 class Snake
   attr_writer :direction
+
   def initialize
-    @positions = [[2,0], [2,1], [2,2], [2,3]]
+    @positions = [[2, 0], [2, 1], [2, 2], [2, 3]]
     @direction = 'down'
+    @growing = false
   end
 
   def draw
@@ -30,7 +32,9 @@ class Snake
   end
 
   def move
-    @positions.shift
+    if !@growing
+      @positions.shift
+    end
     case @direction
     when 'down'
       @positions.push(new_coords(head[0], head[1] + 1))
@@ -41,6 +45,7 @@ class Snake
     when 'right'
       @positions.push(new_coords(head[0] + 1, head[1]))
     end
+    @growing = false
   end
 
   def can_change_direction_to?(new_direction)
@@ -50,6 +55,22 @@ class Snake
     when 'left' then new_direction != 'right'
     when 'right' then new_direction != 'left'
     end
+  end
+
+  def x
+    head[0]
+  end
+
+  def y
+    head[1]
+  end
+
+  def grow
+    @growing = true
+  end
+
+  def hit_itself?
+    @positions.length != @positions.uniq.length
   end
 
   private
@@ -78,14 +99,19 @@ class Game
       color: 'red'
     )
     Text.new(
-      "Score: #{@score}",
-      color: 'white',
-      x: 10,
-      y: 10,
-      size: 20
+      "Score: #{@score}", color: 'white', x: 10, y: 10, size: 20
     )
   end
 
+  def snake_hit_ball?(x, y)
+    @ball_x == x && @ball_y == y
+  end
+
+  def record_hit
+    @score += 1
+    @ball_x = rand(GRID_WIDTH)
+    @ball_y = rand(GRID_HEIGHT)
+  end
 end
 
 snake = Snake.new
@@ -96,6 +122,15 @@ update do
   snake.move
   snake.draw
   game.draw
+
+  if game.snake_hit_ball?(snake.x, snake.y)
+    game.record_hit
+    snake.grow
+  end
+
+  if snake.hit_itself?
+    # game.end
+  end
 end
 
 on :key_down do |event|
@@ -105,6 +140,5 @@ on :key_down do |event|
     end
   end
 end
-
 
 show
