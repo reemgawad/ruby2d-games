@@ -23,4 +23,5 @@ git clone https://github.com/reemgawad/ruby2d-games.git
 cd snake
 ruby snake.rb
 ```
-Use the arrow keys to move the snake. Gather points as you feed the snake, the game ends when the snake hits itself!
+Use the arrow keys to move the snake. 
+Gather points as you feed the snake, the game ends when the snake hits itself!
