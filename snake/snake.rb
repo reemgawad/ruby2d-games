@@ -116,7 +116,6 @@ class Game
   end
 
   def end
-    puts 'Ending game'
     @ended = true
   end
 
