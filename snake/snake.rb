@@ -89,17 +89,21 @@ class Game
     @score = 0
     @ball_x = rand(GRID_WIDTH)
     @ball_y = rand(GRID_HEIGHT)
+    @ended = false
   end
 
   def draw
-    Square.new(
-      x: @ball_x * GRID_SIZE,
-      y: @ball_y * GRID_SIZE,
-      size: GRID_SIZE,
-      color: 'red'
-    )
+    unless ended?
+      Square.new(
+        x: @ball_x * GRID_SIZE,
+        y: @ball_y * GRID_SIZE,
+        size: GRID_SIZE,
+        color: 'olive',
+        radius: 2
+      )
+    end
     Text.new(
-      "Score: #{@score}", color: 'white', x: 10, y: 10, size: 20
+      score_message, color: 'aqua', x: 10, y: 10, size: 20
     )
   end
 
@@ -112,6 +116,25 @@ class Game
     @ball_x = rand(GRID_WIDTH)
     @ball_y = rand(GRID_HEIGHT)
   end
+
+  def end
+    puts 'Ending game'
+    @ended = true
+  end
+
+  def ended?
+    @ended
+  end
+
+  private
+
+  def score_message
+    if ended?
+      "Game over. Your score was #{@score}. Press 'R' to restart."
+    else
+      "Score: #{@score}"
+    end
+  end
 end
 
 snake = Snake.new
@@ -119,7 +142,7 @@ game = Game.new
 
 update do
   clear
-  snake.move
+  snake.move unless game.ended?
   snake.draw
   game.draw
 
@@ -129,7 +152,7 @@ update do
   end
 
   if snake.hit_itself?
-    # game.end
+    game.end
   end
 end
 
