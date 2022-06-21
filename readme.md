@@ -5,5 +5,5 @@ Creating simple games using the [ruby2d framework.](https://www.ruby2d.com/)
 
 Classic game of snake. 
 <br>
-<img src="snake/images/snake_game.gif" alt="snake game gif" width="500"/>
+<img src="01-snake/images/snake_game.gif" alt="snake game gif" width="500"/>
 
