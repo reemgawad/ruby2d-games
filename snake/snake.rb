@@ -1,7 +1,6 @@
 require 'ruby2d'
 
-set background: 'navy'
-set fps_cap: 20
+set title: 'Snake Game', background: 'navy', fps_cap: 20
 
 # grid:
 # width = 640 / 20 = 32
@@ -32,9 +31,8 @@ class Snake
   end
 
   def move
-    if !@growing
-      @positions.shift
-    end
+    @positions.shift unless @growing
+
     case @direction
     when 'down'
       @positions.push(new_coords(head[0], head[1] + 1))
@@ -98,7 +96,7 @@ class Game
         x: @ball_x * GRID_SIZE,
         y: @ball_y * GRID_SIZE,
         size: GRID_SIZE,
-        color: 'olive',
+        color: 'orange',
         radius: 2
       )
     end
