@@ -151,16 +151,17 @@ update do
     snake.grow
   end
 
-  if snake.hit_itself?
-    game.end
-  end
+  game.end if snake.hit_itself?
 end
 
 on :key_down do |event|
-  if ['up', 'down', 'left', 'right'].include?(event.key)
+  if %w[up down left right].include?(event.key)
     if snake.can_change_direction_to?(event.key)
       snake.direction = event.key
     end
+  elsif event.key == 'r'
+    snake = Snake.new
+    game = Game.new
   end
 end
 
