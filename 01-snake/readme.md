@@ -20,7 +20,7 @@ git clone https://github.com/reemgawad/ruby2d-games.git
 
 ## Play
 ```
-cd snake
+cd ruby2d-games/01-snake
 ruby snake.rb
 ```
 <p>Use the arrow keys to move the snake.</p>
