@@ -23,3 +23,4 @@ git clone https://github.com/reemgawad/ruby2d-games.git
 cd snake
 ruby snake.rb
 ```
+Use the arrow keys to move the snake.
