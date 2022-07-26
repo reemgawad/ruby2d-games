@@ -1,6 +1,6 @@
 require 'ruby2d'
 
-set title: 'Snake Game', background: 'navy', fps_cap: 20
+set title: 'SNAKE', background: 'navy', fps_cap: 20
 
 # grid:
 # width = 640 / 20 = 32
